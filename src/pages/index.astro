@@ -1,141 +1,179 @@
 ---
 import { getCollection } from "astro:content";
-import "../global.css";
+import { BriefcaseBusinessIcon, MailIcon } from "@lucide/astro";
+import Layout from "../layouts/Layout.astro";
+import type { ContentCollectionKey } from "astro:content";
 
 const posts = await getCollection("blog");
+
+const projects = [
+  {
+    title: "manuale.dev",
+    description: "Manuale di programmazione per neofiti",
+    url: "https://www.manuale.dev",
+    tags: ["ITALIAN"],
+    type: "project",
+  },
+  {
+    title: "instagram-who-refollows",
+    description: "See who doesn't follow you back",
+    url: "https://chromewebstore.google.com/detail/caiibdnacbgkdknjedbblmmnmhnnpflo",
+    tags: ["CHROME EXTENSION"],
+    type: "cool-thing",
+  },
+  {
+    title: "dontshow",
+    description: "Hide sensitive information from websites",
+    url: "https://chromewebstore.google.com/detail/dont-show/gdebfgieajfdgdcdmpnbakflnkoaankk",
+    tags: ["CHROME EXTENSION"],
+    type: "project",
+  },
+  {
+    title: "spotify-background",
+    description: "Make your macos wallpaper match your current song",
+    url: "https://github.com/clemenzi/spotify-background",
+    tags: ["MACOS", "VIBE CODED"],
+    type: "experiment",
+  },
+  {
+    title: "evoshosting.com",
+    description:
+      "Archived, read-only source code of the old EvosHosting website",
+    url: "https://github.com/clemenzi/evoshosting.com",
+    tags: ["ARCHIVED"],
+    type: "project",
+  },
+];
+
+const links = [
+  {
+    label: "GitHub",
+    url: "https://github.com/clemenzi",
+    icon: "https://cdn.simpleicons.org/github/white",
+  },
+  {
+    label: "LinkedIn",
+    url: "https://www.linkedin.com/in/vclemenzi/",
+    icon: "work",
+  },
+  {
+    label: "Last.fm",
+    url: "https://www.last.fm/user/kidvcz",
+    icon: "https://cdn.simpleicons.org/lastdotfm/white",
+  },
+  {
+    label: "Email",
+    url: "mailto:me@vcz.me",
+    icon: "mail",
+  },
+];
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Personal website of Valerio Clemenzi" />
-    <link rel="icon" type="image/x-icon" href="/favicon.svg" />
-    <title>vcz.me</title>
-  </head>
-  <body class="bg-stone-900 text-white">
-    <div class="flex flex-col items-center gap-4 pt-24 px-6">
-      <div class="text-left space-y-4">
+<Layout title="vcz.me">
+  <div class="max-w-prose mx-auto pt-24 pb-8 px-4">
+    <div class="text-left space-y-10">
+      <div class="space-y-4">
+        <h1 class="text-6xl font-extrabold font-display">
+          vcz<span class="text-blue-300">.me</span>
+        </h1>
+        <p class="text-xl max-w-prose">
+          Hello, I'm Valerio, and I build "stuff" on the internet. By-design,
+          this website is almost empty, because I want my work to speak for me.
+        </p>
+        <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {
+            links.map((link) => (
+              <a href={link.url} rel="noopener noreferrer" target="_blank">
+                <li class="bg-blue-300/10 px-2 py-0.5 border-2 border-blue-300 rounded-lg hover:bg-blue-300/20 transition hover:-translate-y-0.5 text-white flex items-center space-x-1.5 justify-center">
+                  {link.icon === "work" && <BriefcaseBusinessIcon size={16} />}
+                  {link.icon === "mail" && <MailIcon size={16} />}
+                  {link.icon.startsWith("http") && (
+                    <img
+                      src={link.icon}
+                      alt={link.label}
+                      class="inline-block"
+                      width={16}
+                      height={16}
+                    />
+                  )}
+                  <span class="text-white/80">{link.label}</span>
+                </li>
+              </a>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="space-y-4">
         <div>
-          <h1 class="text-4xl font-extrabold">vcz.me</h1>
-          <p class="text-lg max-w-prose">
-            Hello, I'm Valerio, and i build "stuff" on the internet. By-design,
-            this website is almost empty, because I want my work to speak for
-            me.
+          <h2 class="font-display text-3xl font-bold">
+            <span class="text-blue-300">Projects</span>
+            <span class="text-white/80">, </span>
+            <span class="text-orange-300">Cool Things</span>
+            <span class="text-white/80">, </span>
+            <span class="text-pink-300">Experiments</span>
+          </h2>
+          <p class="text-white/80">
+            All my development/non-development work. Including everything I
+            think it's cool.
           </p>
         </div>
-        <div>
-          <h2 class="text-2xl font-semibold">
-            Projects, Cool Things, Experiments
-          </h2>
-          <ul>
-            <li>
-              <a
-                href="https://www.manuale.dev"
-                class="hover:underline text-blue-300"
-              >
-                manuale.dev: Manuale di programmazione per neofiti (ITALIAN)
+        <ul class="grid gap-2">
+          {
+            projects.map((project) => (
+              <a href={project.url} target="_blank" rel="noopener noreferrer">
+                <li
+                  class={`py-2.5 px-4 border-2 border-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/50 rounded-lg group hover:-translate-0.5 transition shadow-lg bg-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/10`}
+                >
+                  <h3 class="text-lg font-semibold">{project.title}</h3>
+                  <p class="text-white/80">{project.description}</p>
+                  {project.tags && (
+                    <div class="flex gap-2 pt-1.5">
+                      {project.tags.map((tag) => (
+                        <span
+                          class={`border-2 border-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/30 bg-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/10 text-white px-1.5 py-0.5 rounded-lg text-xs`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </li>
               </a>
-            </li>
-            <li>
-              <a
-                href="https://chromewebstore.google.com/detail/caiibdnacbgkdknjedbblmmnmhnnpflo"
-                class="hover:underline text-blue-300"
-              >
-                instagram-who-refollows: See who doesn't follow you back (Chrome
-                Extension)
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://chromewebstore.google.com/detail/dont-show/gdebfgieajfdgdcdmpnbakflnkoaankk"
-                class="hover:underline text-blue-300"
-              >
-                dontshow: Hide sensitive information from websites (Chrome
-                Extension)
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/clemenzi/spotify-background"
-                class="hover:underline text-blue-300"
-              >
-                spotify-background: Make your macos wallpaper match your current
-                song (vibe coded, experimental)
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/clemenzi/evoshosting.com"
-                class="hover:underline text-blue-300"
-              >
-                evoshosting.com: Archived, read-only source code of the old
-                EvosHosting website
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <h2 class="text-2xl font-semibold">Useful Links</h2>
-          <ul>
-            <li>
-              <a
-                href="https://github.com/clemenzi"
-                class="hover:underline text-blue-300"
-              >
-                github.com/clemenzi
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.linkedin.com/in/vclemenzi/"
-                class="hover:underline text-blue-300"
-              >
-                linkedin.com/in/vclemenzi
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.last.fm/user/kidvcz"
-                class="hover:underline text-blue-300"
-              >
-                last.fm/user/kidvcz
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h2 class="text-2xl font-semibold">Blog Posts</h2>
-          <ul>
-            {
-              posts.length > 0 ? (
-                posts.map((post: { id: string; data: { title: string } }) => (
-                  <li>
-                    <a
-                      href={`/blog/${post.id}`}
-                      class="hover:underline text-blue-300"
-                    >
-                      {post.data.title}
-                    </a>
-                  </li>
-                ))
-              ) : (
-                <li class="text-white/60">Umm... no posts yet.</li>
-              )
-            }
-          </ul>
-        </div>
-        <div>
-          <footer class="italic text-white/70">
-            <span> (c) 2025 Valerio Clemenzi. </span>
-            <a href="mailto:me@vcz.me" class="hover:underline"
-              >Mail me at me@vcz.me</a
-            >
-          </footer>
-        </div>
+            ))
+          }
+        </ul>
       </div>
+
+      <div class="space-y-4">
+        <h2 class="text-3xl font-semibold font-display">
+          <span class="text-lime-300">Blog Posts</span>
+        </h2>
+        <ul>
+          {
+            posts.length > 0 ? (
+              posts.map((post) => (
+                <a href={`/blog/${post.id}`} rel="noopener noreferrer">
+                  <li class="bg-lime-300/10 rounded-lg hover:-translate-0.5 transition py-2 px-4 border-2 border-lime-300/50">
+                    <h3 class="text-lg font-semibold">{post.data.title}</h3>
+                    <p class="text-white/80 text-sm">{post.data.description}</p>
+                    <span class="text-white/60 text-xs">
+                      Published on{" "}
+                      {new Date(post.data.date).toLocaleDateString()}
+                    </span>
+                  </li>
+                </a>
+              ))
+            ) : (
+              <li class="text-white/60">Umm... no posts yet.</li>
+            )
+          }
+        </ul>
+      </div>
+      <footer class="italic text-blue-200 font-display space-x-0.5">
+        <span class="text-amber-200"> Thanks for visiting! </span>
+        <span> Made with love by </span>
+        <span class="text-red-200">Valerio Clemenzi</span>
+      </footer>
     </div>
-  </body>
-</html>
+  </div>
+</Layout>

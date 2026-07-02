@@ -1,2 +1,46 @@
-@import 'tailwindcss';
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@import "tailwindcss";
 @plugin '@tailwindcss/typography';
+
+@theme {
+  --font-display: "JetBrains Mono", monospace;
+}
+
+/*
+This classes are used dynamically, so this is needed for tailwindcss to generate the correct styles
+*/
+.border-blue-300\/50 {
+  @apply border-blue-300/50;
+}
+
+.border-blue-300\/30 {
+  @apply border-blue-300/30;
+}
+
+.bg-blue-300\/10 {
+  @apply bg-blue-300/10;
+}
+
+.border-orange-300\/50 {
+  @apply border-orange-300/50;
+}
+
+.border-orange-300\/30 {
+  @apply border-orange-300/30;
+}
+
+.bg-orange-300\/10 {
+  @apply bg-orange-300/10;
+}
+
+.border-pink-300\/50 {
+  @apply border-pink-300/50;
+}
+
+.border-pink-300\/30 {
+  @apply border-pink-300/30;
+}
+
+.bg-pink-300\/10 {
+  @apply bg-pink-300/10;
+}

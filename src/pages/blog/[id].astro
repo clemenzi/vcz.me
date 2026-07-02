@@ -1,6 +1,6 @@
 ---
+import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
-import "../../global.css";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -15,28 +15,29 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Personal website of Valerio Clemenzi" />
-    <link rel="icon" type="image/x-icon" href="/favicon.svg" />
-    <title>
-      {post.data.title} - vcz.me
-    </title>
-  </head>
-  <body class="bg-stone-900 text-white">
-    <div class="max-w-2xl mx-auto py-12 space-y-4">
-      <div class="flex items-center justify-between">
-        <a href="/" class="text-white/80 hover:underline">
-          &larr; Back to home
-        </a>
-      </div>
-      <h1 class="text-4xl font-extrabold">{post.data.title}</h1>
-      <div class="prose dark:prose-invert">
-        <Content />
-      </div>
+<Layout title={post.data.title}>
+  <div class="max-w-prose mx-auto py-12 space-y-4 px-4">
+    <div class="flex items-center justify-between">
+      <a href="/" class="text-white/80 hover:underline font-display">
+        &larr; Back to home
+      </a>
     </div>
-  </body>
-</html>
+    <div class="space-y-1">
+      <h1 class="text-5xl font-display font-bold text-blue-300">
+        {post.data.title}
+      </h1>
+      <span class="text-white/80 italic text-lg">
+        Written by Valerio on {new Date(post.data.date).toLocaleDateString()}
+      </span>
+    </div>
+    <div class="prose dark:prose-invert">
+      <Content />
+    </div>
+    <footer class="italic text-blue-200 font-display space-x-0.5">
+      <span class="text-amber-200"> Thanks for reading! </span>
+      <a href="/" class="text-white/80 hover:underline">
+        &larr; Back to home
+      </a>
+    </footer>
+  </div>
+</Layout>
