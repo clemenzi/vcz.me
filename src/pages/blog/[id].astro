@@ -2,16 +2,30 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 
+const langdict = {
+  en: "English",
+  it: "Italiano",
+};
+
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
 
   return posts.map((post) => ({
-    params: { id: post.id },
-    props: { post },
+    params: {
+      id: post.id,
+    },
+    props: {
+      post,
+      otherLanguages: posts
+        .filter((p) => p.data.original === post.id)
+        .map((p) => ({
+          ...p,
+        })),
+    },
   }));
 }
 
-const { post } = Astro.props;
+const { post, otherLanguages } = Astro.props;
 const { Content } = await render(post);
 ---
 
@@ -21,16 +35,31 @@ const { Content } = await render(post);
       <a href="/" class="text-white/80 hover:underline font-display">
         &larr; Back to home
       </a>
-    </div>
-    <div class="space-y-1">
-      <h1 class="text-5xl font-display font-bold text-blue-300">
-        {post.data.title}
-      </h1>
-      <span class="text-white/80 italic text-lg">
-        Written by Valerio on {new Date(post.data.date).toLocaleDateString()}
+
+      <span class="text-white/70 italic font-display">
+        Written by Valerio on {new Date(post.data.date).toLocaleDateString()}.
       </span>
     </div>
-    <div class="prose dark:prose-invert">
+    <div class="space-y-1">
+      <h1 class="text-4xl font-display font-bold text-blue-300">
+        {post.data.title}
+      </h1>
+      {
+        otherLanguages.length > 0 && (
+          <span class="text-white/80 italic">
+            This post is also available in{" "}
+            {otherLanguages.map((l, i) => (
+              <a href={`/blog/${l.id}`} class="text-lime-200/90 hover:underline">
+                {langdict[l.data.lang]} {i < otherLanguages.length - 1 && ", "}
+              </a>
+            ))}
+          </span>
+        )
+      }
+    </div>
+    <div
+      class="prose dark:prose-invert prose-headings:font-display prose-h1:text-blue-200 prose-h2:text-orange-200 prose-h3:text-yellow-200 prose-h4:text-lime-200 prose-h5:text-white prose-h5:font-semibold"
+    >
       <Content />
     </div>
     <footer class="italic text-blue-200 font-display space-x-0.5">

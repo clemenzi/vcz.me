@@ -1,0 +1,108 @@
+---
+title: "How I Built a Programming Manual in 3 Days"
+description: "How I created a programming manual in just 3 days"
+date: "2026-07-02"
+lang: "en"
+---
+
+I have been programming since I was about 12 years old. By the time I started high school in the applied sciences track, I already had a solid foundation, and that helped me stand out in computer science classes right away.
+
+Because of that, I sometimes ended up talking with my teacher about how the class was doing. During one of those conversations, a very concrete problem came up: there was no programming guide truly designed for high school students, one that was complete but still easy to understand.
+
+The idea came almost immediately: I would write it myself.
+
+The project was doable, but there was one major constraint: I had to finish it in 3 days so it would be available before the end-of-year Python test.
+
+From that moment on, the challenge was not just writing a useful guide, but writing it quickly enough for it to be useful at exactly the right time.
+
+## Turning a sudden idea into a real project
+To make that happen, I needed tools that would save me time without sacrificing quality. The ideal stack had to meet three requirements:
+
+- Easy to use
+- Fast to use
+- Easy to deploy
+
+And there was one more requirement: the site had to be <span class="text-lime-300 font-bold">COMPLETELY STATIC</span>.
+
+There was one framework that felt perfect for this situation: [**Astro**](https://astro.build). On top of checking all those boxes, it also comes with an excellent template for building documentation: [Starlight](https://starlight.astro.build).
+
+The combination of [**Astro**](https://astro.build) and [Starlight](https://starlight.astro.build) was exactly what I needed: simple, fast to set up, and incredibly easy to deploy. It also gave me a visually solid starting point that was easy to customize.
+
+## The right choice at the right time
+At first, I picked [Starlight](https://starlight.astro.build) mainly because it was the most natural option in the [Astro](https://astro.build) ecosystem. But after using it, I realized it had several strengths that will probably make me choose it again in future projects.
+
+One of the things I liked most was how hackable it is. For example, in `route-middleware.ts` I can modify page metadata so that, depending on the selected language, the sidebar only shows the sections that are actually relevant.
+
+```ts
+import { defineRouteMiddleware } from "@astrojs/starlight/route-data";
+
+export const onRequest = defineRouteMiddleware((context) => {
+  return {
+    // I return the modified metadata here
+  }
+});
+```
+_[Source code available on GitHub](https://github.com/clemenzi/manuale/blob/main/apps/www/src/route-middleware.ts)_
+
+But that was not the only reason it won me over. The ease of using Tailwind CSS, the built-in theme editor, and many other small conveniences made [Starlight](https://starlight.astro.build) one of the best surprises in the whole project.
+
+## Writing a lot, in very little time
+Finishing a complete guide in 3 days meant one simple thing: writing everything by hand was out of the question. That is why I had to bring in my main ally: **AI**.
+
+AI handled most of the heavy lifting. It helped me write the content, organize it properly, and make sure each section was readable and correctly formatted.
+
+### Using AI is not enough, you have to guide it
+Of course, if left completely on its own, AI would not have produced a result that good. That is why I used **skills**, which allowed me to guide it much more effectively and get a much stronger output.
+
+I created two skills, each with a specific role.
+
+##### Organizer
+The `organizer` skill handled the structure and navigation of a new guide, without writing the full content yet.
+
+```markdown
+---
+name: organizer
+description: "Organizes new educational guides for the Manuale project without writing the full content. Use it when the user asks to create the skeleton, structure, index, or routes of a guide, course, or section for a topic such as PHP, JavaScript, Git, HTML, or CSS in src/content/docs: create the .mdx files with sensible title/description frontmatter and TODOs, then update the sidebar in astro.config.mjs."
+---
+
+# Organizer
+
+Use this skill to create a new guide in the Manuale project starting from a topic. The skill prepares the structure, routes, and navigation, but does not write the full educational documentation.
+
+...
+```
+
+_[View the full skill on GitHub](https://github.com/clemenzi/manuale/blob/main/.agents/skills/organizer/SKILL.md)_
+
+##### Writer
+The `writer` skill, on the other hand, turned that structure into actual content written in a clear and readable way.
+
+```markdown
+---
+name: writer
+description: "Writes and revises educational content in Italian for absolute beginners in computer science and programming: tutorials, practical guides, explanations, references, exercises, micro-lessons, and complete documentation. Use it when technical concepts need to be made clear, when drafts or TODO(writer) items created by the organizer skill need to become complete lessons, when many coherent pages of a guide on a language or tool need to be written, when code needs to be explained step by step, when progressive examples need to be designed, or when tone and terminology need to be standardized for readers without technical foundations."
+---
+
+# Writer
+
+Use this skill to create or improve educational content for **absolute beginners**: people who do not have technical foundations, do not know programming jargon, and may have never written code before.
+
+The goal is real understanding. Write like a patient person walking the reader through one step at a time: simple words, concrete examples, small code snippets, and explicit steps.
+
+...
+```
+
+_[View the full skill on GitHub](https://github.com/clemenzi/manuale/blob/main/.agents/skills/writer/SKILL.md)_
+
+This separation of roles made the whole process much cleaner: first structure, then writing. In practice, it allowed me to work far more efficiently and get a more professional result in a very short amount of time, even if it came with a small cost.
+
+## Publishing it for free was part of the plan
+When I said I wanted a completely static site, I was not just talking about performance. There was also a practical reason: I wanted to publish it at no cost. That choice turned out to be perfect thanks to **Cloudflare Workers**, which offers free hosting for static assets without request or usage limits.
+
+That meant I could put the site online immediately, keep it free to run, and postpone any discussion about monetization or long-term sustainability until later.
+
+## What comes next?
+
+[manuale.dev](https://manuale.dev) was one of those projects I genuinely had fun building. I learned a lot, created something I really like, and, most importantly, published a useful product in a very short time.
+
+And it does not end here. I already have new ideas to make it even more interesting: code execution, interactive exercises, and much more.
