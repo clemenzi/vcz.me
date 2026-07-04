@@ -10,7 +10,12 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "generate-types": "wrangler types"
+    "generate-types": "wrangler types",
+    "lint": "biome lint . && astro check",
+    "fmt": "biome format --write .",
+    "check": "biome check .",
+    "check:write": "biome check --write .",
+    "prepare": "lefthook install"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.1.0",
@@ -25,6 +30,10 @@
     "vite": "^7"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.20"
+    "@astrojs/check": "^0.9.9",
+    "@biomejs/biome": "^2.5.2",
+    "@tailwindcss/typography": "^0.5.20",
+    "lefthook": "^2.1.9",
+    "typescript": "^6.0.3"
   }
 }

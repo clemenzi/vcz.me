@@ -1,0 +1,6 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: "*.{js,cjs,mjs,jsx,ts,cts,mts,tsx,json,jsonc,astro,css,md,mdx}"
+      run: pnpm exec biome check --write --no-errors-on-unmatched --files-ignore-unknown=true {staged_files}

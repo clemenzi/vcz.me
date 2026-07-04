@@ -2,11 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 
-const langdict = {
-  en: "English",
-  it: "Italiano",
-};
-
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
 
@@ -20,6 +15,7 @@ export async function getStaticPaths() {
         .filter((p) => p.data.original === post.id)
         .map((p) => ({
           ...p,
+          languageLabel: p.data.lang === "it" ? "Italiano" : "English",
         })),
     },
   }));
@@ -32,11 +28,11 @@ const { Content } = await render(post);
 <Layout title={post.data.title}>
   <div class="max-w-prose mx-auto py-12 space-y-4 px-4">
     <div class="flex items-center justify-between">
-      <a href="/" class="text-white/80 hover:underline font-display">
+      <a href="/" class="text-white/80 hover:underline font-display text-xs sm:text-base">
         &larr; Back to home
       </a>
 
-      <span class="text-white/70 italic font-display">
+      <span class="text-white/70 italic font-display text-right text-xs sm:text-base">
         Written by Valerio on {new Date(post.data.date).toLocaleDateString()}
       </span>
     </div>
@@ -50,7 +46,7 @@ const { Content } = await render(post);
             This post is also available in{" "}
             {otherLanguages.map((l, i) => (
               <a href={`/blog/${l.id}`} class="text-lime-200/90 hover:underline">
-                {langdict[l.data.lang]} {i < otherLanguages.length - 1 && ", "}
+                {l.languageLabel} {i < otherLanguages.length - 1 && ", "}
               </a>
             ))}
           </span>
