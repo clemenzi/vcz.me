@@ -44,3 +44,41 @@ This classes are used dynamically, so this is needed for tailwindcss to generate
 .bg-pink-300\/10 {
   @apply bg-pink-300/10;
 }
+
+@media (prefers-color-scheme: light) {
+  .border-blue-300\/50 {
+    @apply border-blue-600/50;
+  }
+
+  .border-blue-300\/30 {
+    @apply border-blue-600/30;
+  }
+
+  .bg-blue-300\/10 {
+    @apply bg-blue-600/10;
+  }
+
+  .border-orange-300\/50 {
+    @apply border-orange-600/50;
+  }
+
+  .border-orange-300\/30 {
+    @apply border-orange-600/30;
+  }
+
+  .bg-orange-300\/10 {
+    @apply bg-orange-600/10;
+  }
+
+  .border-pink-300\/50 {
+    @apply border-pink-600/50;
+  }
+
+  .border-pink-300\/30 {
+    @apply border-pink-600/30;
+  }
+
+  .bg-pink-300\/10 {
+    @apply bg-pink-600/10;
+  }
+}

@@ -48,7 +48,7 @@ const links = [
   {
     label: "GitHub",
     url: "https://github.com/clemenzi",
-    icon: "https://cdn.simpleicons.org/github/white",
+    icon: "https://cdn.simpleicons.org/github",
   },
   {
     label: "LinkedIn",
@@ -58,7 +58,7 @@ const links = [
   {
     label: "Last.fm",
     url: "https://www.last.fm/user/kidvcz",
-    icon: "https://cdn.simpleicons.org/lastdotfm/white",
+    icon: "https://cdn.simpleicons.org/lastdotfm",
   },
   {
     label: "Email",
@@ -73,7 +73,7 @@ const links = [
     <div class="text-left space-y-10">
       <div class="space-y-4">
         <h1 class="text-6xl font-extrabold font-display">
-          vcz<span class="text-blue-300">.me</span>
+          vcz<span class="text-blue-600 dark:text-blue-300">.me</span>
         </h1>
         <p class="text-xl max-w-prose">
           Hello, I'm Valerio, and I build "stuff" on the internet. By-design,
@@ -83,7 +83,7 @@ const links = [
           {
             links.map((link) => (
               <a href={link.url} rel="noopener noreferrer" target="_blank">
-                <li class="bg-blue-300/10 px-2 py-0.5 border-2 border-blue-300 rounded-lg hover:bg-blue-300/20 transition hover:-translate-y-0.5 text-white flex items-center space-x-1.5 justify-center">
+                <li class="bg-blue-600/10 px-2 py-0.5 border-2 border-blue-600/70 dark:border-blue-300 rounded-lg hover:bg-blue-600/15 transition hover:-translate-y-0.5 text-zinc-800 dark:text-white flex items-center space-x-1.5 justify-center">
                   {link.icon === "work" && <BriefcaseBusinessIcon size={16} />}
                   {link.icon === "mail" && <MailIcon size={16} />}
                   {link.icon.startsWith("http") && (
@@ -95,7 +95,7 @@ const links = [
                       height={16}
                     />
                   )}
-                  <span class="text-white/80">{link.label}</span>
+                  <span class="text-zinc-700 dark:text-white/80">{link.label}</span>
                 </li>
               </a>
             ))
@@ -105,11 +105,11 @@ const links = [
       <div class="space-y-4">
         <div class="space-y-1.5">
           <h2 class="font-display text-3xl font-bold">
-            <span class="text-blue-300">Projects</span>
-            <span class="text-white/80">, </span>
-            <span class="text-orange-300">Cool Things</span>
-            <span class="text-white/80">, </span>
-            <span class="text-pink-300">Experiments</span>
+            <span class="text-blue-600 dark:text-blue-300">Projects</span>
+            <span class="text-zinc-700 dark:text-white/80">, </span>
+            <span class="text-orange-600 dark:text-orange-300">Cool Things</span>
+            <span class="text-zinc-700 dark:text-white/80">, </span>
+            <span class="text-pink-600 dark:text-pink-300">Experiments</span>
           </h2>
           <p>
             All my development/non-development work. Including everything I
@@ -124,12 +124,12 @@ const links = [
                   class={`py-2.5 px-4 border-2 border-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/50 rounded-lg group hover:-translate-0.5 transition shadow-lg bg-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/10`}
                 >
                   <h3 class="text-lg font-semibold">{project.title}</h3>
-                  <p class="text-white/80">{project.description}</p>
+                  <p class="text-zinc-700 dark:text-white/80">{project.description}</p>
                   {project.tags && (
                     <div class="flex gap-2 pt-1.5">
                       {project.tags.map((tag) => (
                         <span
-                          class={`border-2 border-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/30 bg-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/10 text-white px-1.5 py-0.5 rounded-lg text-xs`}
+                          class={`border-2 border-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/30 bg-${project.type === "cool-thing" ? "orange" : project.type === "experiment" ? "pink" : "blue"}-300/10 text-zinc-900 dark:text-white px-1.5 py-0.5 rounded-lg text-xs`}
                         >
                           {tag}
                         </span>
@@ -145,7 +145,7 @@ const links = [
 
       <div class="space-y-4">
         <h2 class="text-3xl font-semibold font-display">
-          <span class="text-lime-300">Blog Posts</span>
+          <span class="text-lime-600 dark:text-lime-300">Blog Posts</span>
         </h2>
         <ul>
           {
@@ -155,8 +155,8 @@ const links = [
                 <a href={`/blog/${post.id}`} rel="noopener noreferrer">
                   <li class="bg-lime-300/10 rounded-lg hover:-translate-0.5 transition py-2 px-4 border-2 border-lime-300/50">
                     <h3 class="text-lg font-semibold">{post.data.title}</h3>
-                    <p class="text-white/80 text-sm">{post.data.description}</p>
-                    <span class="text-white/60 text-xs">
+                    <p class="text-zinc-700 dark:text-white/80 text-sm">{post.data.description}</p>
+                    <span class="text-zinc-600 dark:text-white/60 text-xs">
                       Published on{" "}
                       {new Date(post.data.date).toLocaleDateString()}
                     </span>
@@ -166,10 +166,10 @@ const links = [
           }
         </ul>
       </div>
-      <footer class="italic text-blue-200 font-display space-x-0.5">
-        <span class="text-amber-200"> Thanks for visiting! </span>
+      <footer class="italic text-blue-600 dark:text-blue-200 font-display space-x-0.5">
+        <span class="text-amber-600 dark:text-amber-200"> Thanks for visiting! </span>
         <span> Made with love by </span>
-        <span class="text-red-200">Valerio Clemenzi</span>
+        <span class="text-red-600 dark:text-red-200">Valerio Clemenzi</span>
       </footer>
     </div>
   </div>
